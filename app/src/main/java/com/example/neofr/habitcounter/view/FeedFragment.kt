@@ -7,10 +7,10 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.LinearLayout
 import android.widget.TextView
-import com.example.neofr.habitcounter.model.HabitCounter
-import com.example.neofr.habitcounter.model.HabitCounterFactory
 import com.example.neofr.habitcounter.R
+import com.example.neofr.habitcounter.model.HabitCounter
 import java.util.Arrays.asList
 
 
@@ -18,8 +18,10 @@ class FeedFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HabitAdapter
     private fun updateUi() {
-        val counters = asList(HabitCounterFactory().createHabit(1),
-            HabitCounterFactory().createHabit(2) )
+        val counters = asList(
+            HabitCounterFactory().createHabit(1),
+            HabitCounterFactory().createHabit(2)
+        )
         adapter = HabitAdapter(counters)
         recyclerView.adapter = adapter
     }
@@ -27,20 +29,20 @@ class FeedFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_feed, container, false)
         recyclerView = view.findViewById(R.id.feed_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(activity)
+        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, true)
         updateUi()
         return view
     }
 
     inner class HabitHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.feed_item, parent, false)) {
-        var  habitName: TextView = itemView.findViewById(R.id.feed_habit_name)
-        var habitCounter: TextView = itemView.findViewById(R.id.habitCount)
-        lateinit var habit: HabitCounter
-        fun bind(habitCounter: HabitCounter){
-            this.habit = habitCounter
-            habitName.text = this.habit.habit.getName
-            this.habitCounter.text = "1"
+        var habitName: TextView = itemView.findViewById(R.id.feed_habit_name)
+        var habitCounter: TextView = itemView.findViewById(R.id.feed_habit_count)
+        lateinit var counter: HabitCounter
+        fun bind(habitCounter: HabitCounter) {
+            this.counter = habitCounter
+            habitName.text = this.counter.habit.getName
+            this.habitCounter.text = this.counter.resources.keys.joinToString(separator = " ") { it.name }
         }
     }
 

@@ -7,6 +7,7 @@ class HabitPresenter(val view: View<HabitPresenter>, private val useCaseHandler:
         useCaseHandler.execute(useCase, HabitRequest(), object : CallBack<HabitResponse>{
             override fun onSuccess(response: HabitResponse) {
                 val habits = response.list
+                println("get habits")
             }
 
             override fun onError() {
@@ -14,7 +15,7 @@ class HabitPresenter(val view: View<HabitPresenter>, private val useCaseHandler:
             }
         })
     }
-    private val useCase = LoadHabit()
+    private val useCase = LoadHabitCounters()
     override fun start() {
         view.setPresenter(this)
         loadHabits()

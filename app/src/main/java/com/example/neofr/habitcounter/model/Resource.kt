@@ -1,5 +1,3 @@
 package com.example.neofr.habitcounter.model
 
-class Resource(var name :String, var count: Int) {
-
-}
+data class Resource(val name: String)

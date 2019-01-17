@@ -8,6 +8,10 @@
               android:layout_width="match_parent"
               android:text="some text from feed item"
               android:layout_height="wrap_content"/>
+    <TextView android:id="@+id/feed_habit_count"
+              android:layout_width="match_parent"
+              android:text="count from feed item"
+              android:layout_height="wrap_content"/>
     <ImageView android:id="@+id/feed_habit_view" android:layout_width="match_parent"
                android:layout_height="match_parent" android:contentDescription="@string/habit_image_accessibility"/>
 </LinearLayout>

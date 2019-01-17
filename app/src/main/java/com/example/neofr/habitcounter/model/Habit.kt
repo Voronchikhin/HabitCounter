@@ -1,4 +1,3 @@
 package com.example.neofr.habitcounter.model
 
-class Habit(val getDescription: String, val getName: String) {
-}
+data class Habit(val name:String, val description: String)
