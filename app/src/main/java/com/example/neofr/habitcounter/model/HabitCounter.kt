@@ -24,7 +24,7 @@ class HabitCounter(val habit: Habit) {
 
 
 // TODO: var count не помешало бы хранить в БД
-class ResourceCounter(resource: Resource, val measure: Int, count: Int) {
+private class ResourceCounter(resource: Resource, val measure: Int, count: Int) {
     var count = count
         private set
 

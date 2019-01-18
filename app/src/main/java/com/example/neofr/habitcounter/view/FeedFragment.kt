@@ -11,17 +11,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.neofr.habitcounter.R
 import com.example.neofr.habitcounter.model.HabitCounter
-import java.util.Arrays.asList
+import com.example.neofr.habitcounter.model.HabitCounterRepositoryImpl
 
 
 class FeedFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: HabitAdapter
     private fun updateUi() {
-        val counters = asList(
-            HabitCounterFactory().createHabit(1),
-            HabitCounterFactory().createHabit(2)
-        )
+        val counters = HabitCounterRepositoryImpl.instance.getHabitCounters().toList()
         adapter = HabitAdapter(counters)
         recyclerView.adapter = adapter
     }
@@ -41,13 +38,12 @@ class FeedFragment : Fragment() {
         lateinit var counter: HabitCounter
         fun bind(habitCounter: HabitCounter) {
             this.counter = habitCounter
-            habitName.text = this.counter.habit.getName
-            this.habitCounter.text = this.counter.resources.keys.joinToString(separator = " ") { it.name }
+            habitName.text = this.counter.habit.name
+            this.habitCounter.text = this.counter.habit.description
         }
     }
 
     inner class HabitAdapter(var habits: List<HabitCounter>) : RecyclerView.Adapter<HabitHolder>() {
-
         override fun onCreateViewHolder(parent: ViewGroup, p1: Int): HabitHolder {
             val inflater: LayoutInflater = LayoutInflater.from(activity)
             return HabitHolder(inflater, parent)
