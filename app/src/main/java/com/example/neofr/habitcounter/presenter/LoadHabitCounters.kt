@@ -1,15 +1,16 @@
 package com.example.neofr.habitcounter.presenter
 
+import com.example.neofr.habitcounter.model.HabitCounter
+import com.example.neofr.habitcounter.model.HabitCounterRepositoryImpl
 import com.example.neofr.habitcounter.presenter.common.CallBack
 import com.example.neofr.habitcounter.presenter.common.UseCase
-import java.util.Arrays.asList
 
 class LoadHabitCounters() : UseCase<HabitResponse, HabitRequest >() {
     override lateinit var requestValue: HabitRequest
     override lateinit var callBack: CallBack<HabitResponse>
 
     override fun execute(x: HabitRequest){
-        HabitResponse(asList( HabitCounterFactory().createHabit(1)))
+        HabitResponse(HabitCounterRepositoryImpl.instance.getHabitCounters().toList())
     }
 }
 
