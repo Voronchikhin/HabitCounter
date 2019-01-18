@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.neofr.habitcounter.R
@@ -34,13 +35,21 @@ class FeedFragment : Fragment() {
     inner class HabitHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.feed_item, parent, false)) {
         var habitName: TextView = itemView.findViewById(R.id.feed_habit_name)
-        var habitCounter: TextView = itemView.findViewById(R.id.feed_habit_count)
+        var habitCount: TextView = itemView.findViewById(R.id.feed_habit_count)
+        val countButton: Button = itemView.findViewById(R.id.doCountButton)
+
         lateinit var counter: HabitCounter
         fun bind(habitCounter: HabitCounter) {
             this.counter = habitCounter
             habitName.text = this.counter.habit.name
-            this.habitCounter.text = this.counter.habit.description
+            this.habitCount.text = this.counter.resourceCounters.joinToString { "${it.resource.name}: ${it.count}\n" }
+            // FIXME: deprecated getPosition()
+            countButton.setOnClickListener {
+                counter.doCount();
+                adapter.notifyItemChanged(position)
+            }
         }
+
     }
 
     inner class HabitAdapter(var habits: List<HabitCounter>) : RecyclerView.Adapter<HabitHolder>() {

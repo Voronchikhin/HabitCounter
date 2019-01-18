@@ -8,7 +8,7 @@ class HabitCounter(val habit: Habit) {
     }
 
     //хранит сколько ресурсов привычка тратит за 1 раз
-    private val resourceCounters = LinkedHashSet<ResourceCounter>()
+    val resourceCounters = LinkedHashSet<ResourceCounter>()
 
     // TODO: заменить на нормальное хранение лога( прикрутить БД)
     //хранит историю прибегания к привычке
@@ -24,7 +24,7 @@ class HabitCounter(val habit: Habit) {
 
 
 // TODO: var count не помешало бы хранить в БД
-private class ResourceCounter(resource: Resource, val measure: Int, count: Int) {
+class ResourceCounter(val resource: Resource, val measure: Int, count: Int) {
     var count = count
         private set
 
