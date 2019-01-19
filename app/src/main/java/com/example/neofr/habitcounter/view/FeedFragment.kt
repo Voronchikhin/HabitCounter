@@ -8,7 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.LinearLayout
+import android.widget.ImageView
 import android.widget.TextView
 import com.example.neofr.habitcounter.R
 import com.example.neofr.habitcounter.model.HabitCounter
@@ -44,7 +44,7 @@ class FeedFragment : Fragment(), IHabitView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_feed, container, false)
         recyclerView = view.findViewById(R.id.feed_recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, true)
+        recyclerView.layoutManager = LinearLayoutManager(activity)
         return view
     }
 
@@ -64,7 +64,8 @@ class FeedFragment : Fragment(), IHabitView {
                     separator = "\n",
                     transform = { "${it.resource.name}: ${it.count}\n" }
                 )
-
+            val image: ImageView = itemView.findViewById(R.id.feed_habit_view)
+            image.setImageResource(R.drawable.smoke_logo)
             countButton.setOnClickListener {
                 (presenter as HabitPresenter).doCount(habitCounter)
             }
