@@ -1,6 +1,7 @@
 package com.example.neofr.habitcounter.presenter
 
 import com.example.neofr.habitcounter.model.HabitCounter
+import com.example.neofr.habitcounter.model.HabitCounterRepositoryImpl
 import com.example.neofr.habitcounter.presenter.common.CallBack
 import com.example.neofr.habitcounter.presenter.common.Presenter
 import com.example.neofr.habitcounter.presenter.common.UseCaseHandler
@@ -20,7 +21,7 @@ class HabitPresenter(private val view: View<HabitPresenter>, private val useCase
         })
     }
 
-    private val loadUseCase = LoadHabitCounters()
+    private val loadUseCase = LoadHabitCounters(HabitCounterRepositoryImpl.instance)
     private val countUseCase = DoCountUseCase()
 
 

@@ -62,7 +62,7 @@ class FeedFragment : Fragment(), IHabitView {
                 .resourceCounters
                 .joinToString(
                     separator = "\n",
-                    transform = { "${it.resource.name}: ${it.count}\n" }
+                    transform = { "${it.resource.name} : ${it.count}\n" }
                 )
             val image: ImageView = itemView.findViewById(R.id.feed_habit_view)
             image.setImageResource(R.drawable.smoke_logo)
