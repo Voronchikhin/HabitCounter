@@ -14,8 +14,8 @@ class HabitCounter(val habit: Habit) {
     //хранит историю прибегания к привычке
     private val habitLog = LinkedList<Date>()
 
-    fun addResource(resource: Resource, measure: Int, initCount: Int) {
-        resourceCounters.add(ResourceCounter(resource, measure, initCount))
+    fun addResource(resource: Resource, measure: Int) {
+        resourceCounters.add(ResourceCounter(resource, measure))
 
         habitLog.push(Date())
     }
@@ -24,11 +24,11 @@ class HabitCounter(val habit: Habit) {
 
 
 // TODO: var count не помешало бы хранить в БД
-class ResourceCounter(val resource: Resource, val measure: Int, count: Int) {
-    var count = count
+class ResourceCounter(val resource: Resource, val measure: Int) {
+    var count = resource.count
         private set
 
     fun doCount() {
-        count += measure;
+        count += measure
     }
 }
