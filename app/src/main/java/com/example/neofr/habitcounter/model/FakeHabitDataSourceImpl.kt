@@ -22,8 +22,8 @@ class FakeHabitDataSourceImpl : HabitDataSource {
     val habits = HashMap<String, HabitCounter>()
 
     init {
-        val smokingHabit = Habit("Smoking", "smoke siggarettes")
-        val drinkHabit = Habit("Drink Alcohol", "drinking vodka, beer and so on")
+        val smokingHabit = Habit("smoking", "smoke siggarettes")
+        val drinkHabit = Habit("drinking", "drinking vodka, beer and so on")
         val timeResource = Resource("Time")
         val moneyResource = Resource("Money")
 
