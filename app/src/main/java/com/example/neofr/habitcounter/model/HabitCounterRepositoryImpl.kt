@@ -2,7 +2,7 @@ package com.example.neofr.habitcounter.model
 
 import java.util.*
 
-class HabitCounterRepositoryImpl(val habitDataSource: HabitDataSource) : HabitCounterRepository {
+class HabitCounterRepositoryImpl(private val habitDataSource: HabitDataSource) : HabitCounterRepository {
     override fun getHabitCounters(getCountersCallBack: GetCountersCallBack) {
         habitDataSource.getHabitCounters(getCountersCallBack)
     }

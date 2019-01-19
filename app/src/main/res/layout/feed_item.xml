@@ -5,20 +5,32 @@
               android:orientation="horizontal"
               android:padding="8dp">
 
-    <TextView android:id="@+id/feed_habit_name"
-              android:layout_width="wrap_content"
-              android:text="some text from feed item"
-              android:layout_height="wrap_content"/>
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="match_parent"
+                  android:orientation="vertical">
+        <TextView android:id="@+id/feed_habit_name"
+                  android:layout_width="wrap_content"
+                  android:text="some text from feed item"
+                  android:layout_height="wrap_content"
+                  android:maxEms="7"
+                  android:singleLine="false"/>
+        <TextView android:id="@+id/feed_habit_description"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:maxEms="7"/>
+    </LinearLayout>
     <TextView android:id="@+id/feed_habit_count"
               android:layout_width="wrap_content"
               android:text="count from feed item"
               android:layout_height="wrap_content"/>
-    <Button android:id="@+id/doCountButton" android:text="do count" android:layout_width="wrap_content"
+
+    <Button android:id="@+id/doCountButton" android:text="+" android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
+
+
     <ImageView android:id="@+id/feed_habit_view"
                android:layout_width="75dp"
                android:layout_height="75dp"
                android:contentDescription="@string/habit_image_accessibility"
-               android:layout_gravity="right"/>
+               android:layout_gravity="end"/>
 
 </LinearLayout>

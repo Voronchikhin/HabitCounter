@@ -14,6 +14,7 @@ class HabitCounterAdapterImpl(protected val onClickListener: View.OnClickListene
             )
         view.name.text = habitCounter.habit.name
         view.countButton.setOnClickListener(onClickListener)
+        view.description.text = habitCounter.habit.description
         view.logo.setImageResource(logoCache[habitCounter.habit.name] ?: R.drawable.smoke_logo)
     }
 

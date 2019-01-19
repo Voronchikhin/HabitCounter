@@ -52,13 +52,17 @@ class FeedFragment : Fragment(), IHabitView {
     inner class HabitHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.feed_item, parent, false)) {
 
+        // TODO: убрать этот хардкод
         var habitName: TextView = itemView.findViewById(R.id.feed_habit_name)
 
         var habitCount: TextView = itemView.findViewById(R.id.feed_habit_count)
         val countButton: Button = itemView.findViewById(R.id.doCountButton)
         val image: ImageView = itemView.findViewById(R.id.feed_habit_view)
+        val description: TextView = itemView.findViewById(R.id.feed_habit_description)
+        //
 
-        val habitView = HabitView(habitName, habitCount, image, countButton)
+        val habitView = HabitView(habitName, habitCount, image, countButton, description)
+
         lateinit var counter: HabitCounter
         val viewAdapter = HabitCounterAdapterImpl(View.OnClickListener {
             (presenter as HabitPresenter).doCount(counter)
