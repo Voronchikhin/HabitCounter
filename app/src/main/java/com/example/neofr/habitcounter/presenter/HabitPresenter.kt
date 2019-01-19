@@ -1,23 +1,44 @@
 package com.example.neofr.habitcounter.presenter
 
-import com.example.neofr.habitcounter.presenter.common.*
+import com.example.neofr.habitcounter.model.HabitCounter
+import com.example.neofr.habitcounter.presenter.common.CallBack
+import com.example.neofr.habitcounter.presenter.common.Presenter
+import com.example.neofr.habitcounter.presenter.common.UseCaseHandler
+import com.example.neofr.habitcounter.presenter.common.View
+import com.example.neofr.habitcounter.view.IHabitView
 
-class HabitPresenter(val view: View<HabitPresenter>, private val useCaseHandler: UseCaseHandler): Presenter {
+class HabitPresenter(private val view: View<HabitPresenter>, private val useCaseHandler: UseCaseHandler) : Presenter {
     private fun loadHabits(){
-        useCaseHandler.execute(useCase, HabitRequest(), object : CallBack<HabitResponse>{
+        useCaseHandler.execute(loadUseCase, HabitRequest(), object : CallBack<HabitResponse> {
             override fun onSuccess(response: HabitResponse) {
                 val habits = response.list
-                println("get habits")
+                (view as IHabitView).showHabits(habits)
             }
-
             override fun onError() {
 
             }
         })
     }
-    private val useCase = LoadHabitCounters()
+
+    private val loadUseCase = LoadHabitCounters()
+    private val countUseCase = DoCountUseCase()
+
+
+
     override fun start() {
-        view.setPresenter(this)
+        view.presenter = this
         loadHabits()
+    }
+
+    fun doCount(habitCounter: HabitCounter) {
+        useCaseHandler.execute(countUseCase, DoCountRequest(habitCounter), object : CallBack<DoCountResponse> {
+            override fun onError() {
+                (view as IHabitView).showError()
+            }
+
+            override fun onSuccess(response: DoCountResponse) {
+                (view as IHabitView).updateHabit(response.habitCounter)
+            }
+        })
     }
 }

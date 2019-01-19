@@ -10,7 +10,9 @@ class LoadHabitCounters() : UseCase<HabitResponse, HabitRequest >() {
     override lateinit var callBack: CallBack<HabitResponse>
 
     override fun execute(x: HabitRequest){
-        HabitResponse(HabitCounterRepositoryImpl.instance.getHabitCounters().toList())
+        val habitCounterRepository = HabitCounterRepositoryImpl.instance
+        val response = HabitResponse(habitCounterRepository.getHabitCounters().toList())
+        callBack.onSuccess(response)
     }
 }
 

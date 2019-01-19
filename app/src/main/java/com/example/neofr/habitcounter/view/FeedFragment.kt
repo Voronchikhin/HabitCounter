@@ -12,23 +12,39 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.neofr.habitcounter.R
 import com.example.neofr.habitcounter.model.HabitCounter
-import com.example.neofr.habitcounter.model.HabitCounterRepositoryImpl
+import com.example.neofr.habitcounter.presenter.HabitPresenter
+import com.example.neofr.habitcounter.presenter.common.Presenter
 
 
-class FeedFragment : Fragment() {
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: HabitAdapter
-    private fun updateUi() {
-        val counters = HabitCounterRepositoryImpl.instance.getHabitCounters().toList()
-        adapter = HabitAdapter(counters)
+class FeedFragment : Fragment(), IHabitView {
+    override fun updateHabit(habitCounter: HabitCounter) {
+        adapter.notifyDataSetChanged()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        presenter.start()
+    }
+
+    override fun showError() {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun showHabits(habits: Collection<HabitCounter>) {
+        adapter = HabitAdapter(habits.toList())
         recyclerView.adapter = adapter
     }
+
+
+    lateinit var recyclerView: RecyclerView
+    lateinit var adapter: HabitAdapter
+
+    override lateinit var presenter: Presenter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_feed, container, false)
         recyclerView = view.findViewById(R.id.feed_recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(activity, LinearLayout.HORIZONTAL, true)
-        updateUi()
         return view
     }
 
@@ -42,11 +58,15 @@ class FeedFragment : Fragment() {
         fun bind(habitCounter: HabitCounter) {
             this.counter = habitCounter
             habitName.text = this.counter.habit.name
-            this.habitCount.text = this.counter.resourceCounters.joinToString { "${it.resource.name}: ${it.count}\n" }
-            // FIXME: deprecated getPosition()
+            this.habitCount.text = this.counter
+                .resourceCounters
+                .joinToString(
+                    separator = "\n",
+                    transform = { "${it.resource.name}: ${it.count}\n" }
+                )
+
             countButton.setOnClickListener {
-                counter.doCount();
-                adapter.notifyItemChanged(position)
+                (presenter as HabitPresenter).doCount(habitCounter)
             }
         }
 
