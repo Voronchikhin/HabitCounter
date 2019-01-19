@@ -10,7 +10,7 @@ class HabitCounterAdapterImpl(protected val onClickListener: View.OnClickListene
             .resourceCounters
             .joinToString(
                 separator = "\n",
-                transform = { " ${it.resource.name} : ${it.count}\n" }
+                transform = { " ${it.resource.name}:\n${it.count}\n" }
             )
         view.name.text = habitCounter.habit.name
         view.countButton.setOnClickListener(onClickListener)

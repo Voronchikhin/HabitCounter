@@ -1,8 +1,10 @@
-package com.example.neofr.habitcounter.model
+package com.example.neofr.habitcounter.dao
 
+import com.example.neofr.habitcounter.model.HabitCounter
 import java.util.*
 
-class HabitCounterRepositoryImpl(private val habitDataSource: HabitDataSource) : HabitCounterRepository {
+class HabitCounterRepositoryImpl(private val habitDataSource: HabitDataSource) :
+    HabitCounterRepository {
     override fun getHabitCounters(getCountersCallBack: GetCountersCallBack) {
         habitDataSource.getHabitCounters(getCountersCallBack)
     }
@@ -16,8 +18,9 @@ class HabitCounterRepositoryImpl(private val habitDataSource: HabitDataSource) :
     }
 
     companion object {
-        val instance = HabitCounterRepositoryImpl(FakeHabitDataSourceImpl())
+        val instance =
+            HabitCounterRepositoryImpl(FakeHabitDataSourceImpl())
     }
 
-    private val habits = HashMap<String,HabitCounter>()
+    private val habits = HashMap<String, HabitCounter>()
 }

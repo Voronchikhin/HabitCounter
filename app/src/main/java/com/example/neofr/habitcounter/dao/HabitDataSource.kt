@@ -1,4 +1,4 @@
-package com.example.neofr.habitcounter.model
+package com.example.neofr.habitcounter.dao
 
 interface HabitDataSource : HabitCounterRepository {
 

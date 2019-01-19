@@ -1,8 +1,8 @@
 package com.example.neofr.habitcounter.presenter
 
-import com.example.neofr.habitcounter.model.GetCountersCallBack
+import com.example.neofr.habitcounter.dao.GetCountersCallBack
+import com.example.neofr.habitcounter.dao.HabitCounterRepository
 import com.example.neofr.habitcounter.model.HabitCounter
-import com.example.neofr.habitcounter.model.HabitCounterRepository
 import com.example.neofr.habitcounter.presenter.common.CallBack
 import com.example.neofr.habitcounter.presenter.common.UseCase
 

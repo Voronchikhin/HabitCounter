@@ -1,4 +1,6 @@
-package com.example.neofr.habitcounter.model
+package com.example.neofr.habitcounter.dao
+
+import com.example.neofr.habitcounter.model.HabitCounter
 
 
 interface HabitCounterRepository {

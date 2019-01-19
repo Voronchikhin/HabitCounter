@@ -1,4 +1,8 @@
-package com.example.neofr.habitcounter.model
+package com.example.neofr.habitcounter.dao
+
+import com.example.neofr.habitcounter.model.Habit
+import com.example.neofr.habitcounter.model.HabitCounter
+import com.example.neofr.habitcounter.model.Resource
 
 class FakeHabitDataSourceImpl : HabitDataSource {
     override fun getHabitCounters(getCountersCallBack: GetCountersCallBack) {
