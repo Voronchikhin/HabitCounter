@@ -1,34 +1,13 @@
 package com.example.neofr.habitcounter.model
 
-import java.util.*
+import android.arch.persistence.room.Entity
 
-class HabitCounter(val habit: Habit) {
+@Entity
+data class HabitCounter(
+    val habit: Habit?,
+    val resourceCounters : List<ResourceCounter>
+) {
     fun doCount() {
-        resourceCounters.forEach { it.doCount() }
-    }
-
-    //хранит сколько ресурсов привычка тратит за 1 раз
-    val resourceCounters = LinkedHashSet<ResourceCounter>()
-
-    // TODO: заменить на нормальное хранение лога( прикрутить БД)
-    //хранит историю прибегания к привычке
-    private val habitLog = LinkedList<Date>()
-
-    fun addResource(resource: Resource, measure: Int, initCount: Int) {
-        resourceCounters.add(ResourceCounter(resource, measure, initCount))
-
-        habitLog.push(Date())
-    }
-
-}
-
-
-// TODO: var count не помешало бы хранить в БД
-class ResourceCounter(val resource: Resource, val measure: Int, count: Int) {
-    var count = count
-        private set
-
-    fun doCount() {
-        count += measure;
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 }

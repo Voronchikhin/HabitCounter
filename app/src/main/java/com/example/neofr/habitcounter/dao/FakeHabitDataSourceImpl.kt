@@ -26,25 +26,25 @@ class FakeHabitDataSourceImpl : HabitDataSource {
     val habits = HashMap<String, HabitCounter>()
 
     init {
-        val smokingHabit = Habit("smoking", "smoke siggarettes")
-        val drinkHabit = Habit("drinking", "drinking vodka, beer and so on")
-        val timeResource = Resource("Time")
-        val moneyResource = Resource("Money")
-
-        val drinkHabitCounter = HabitCounter(smokingHabit)
-        val smokeHabitCounter = HabitCounter(drinkHabit)
-
-        drinkHabitCounter.addResource(timeResource, 5 * 60, 0)
-        drinkHabitCounter.addResource(moneyResource, 500, 0)
-
-        smokeHabitCounter.addResource(timeResource, 60 * 60, 0)
-        smokeHabitCounter.addResource(moneyResource, 150, 0)
-
-        addHabitCounter(drinkHabitCounter)
-        addHabitCounter(smokeHabitCounter)
+//        val smokingHabit = Habit("smoking", "smoke siggarettes")
+//        val drinkHabit = Habit("drinking", "drinking vodka, beer and so on")
+//        val timeResource = Resource("Time")
+//        val moneyResource = Resource("Money")
+//
+//        val drinkHabitCounter = HabitCounter(smokingHabit)
+//        val smokeHabitCounter = HabitCounter(drinkHabit)
+//
+//        drinkHabitCounter.addResource(timeResource, 5 * 60, 0)
+//        drinkHabitCounter.addResource(moneyResource, 500, 0)
+//
+//        smokeHabitCounter.addResource(timeResource, 60 * 60, 0)
+//        smokeHabitCounter.addResource(moneyResource, 150, 0)
+//
+//        addHabitCounter(drinkHabitCounter)
+//        addHabitCounter(smokeHabitCounter)
     }
 
     private fun addHabitCounter(habitCounter: HabitCounter) {
-        habits[habitCounter.habit.name] = habitCounter
+        habits[habitCounter.habit!!.name] = habitCounter
     }
 }
