@@ -10,16 +10,16 @@ class HabitCounterAdapterImpl(protected val onClickListener: View.OnClickListene
             .resourceCounters
             .joinToString(
                 separator = "\n",
-                transform = { " ${it.resource.name}:\n${it.count}\n" }
+                transform = { " ${it.resource.name}:\n${it.resourceCounter.count}\n" }
             )
-        view.name.text = habitCounter.habit!!.name
+        view.name.text = habitCounter.habit.name
         view.countButton.setOnClickListener(onClickListener)
         view.description.text = habitCounter.habit.description
         view.logo.setImageResource(logoCache[habitCounter.habit.name] ?: R.drawable.smoke_logo)
     }
 
     protected val logoCache = hashMapOf<String, Int>(
-        Pair("smoking", R.drawable.smoke_logo),
-        Pair("drinking", R.drawable.coffee)
+        Pair("Smoke", R.drawable.smoke_logo),
+        Pair("Coffee", R.drawable.coffee)
     )
 }
