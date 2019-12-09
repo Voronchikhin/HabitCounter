@@ -1,26 +1,38 @@
 package com.example.neofr.habitcounter.dao
 
 import com.example.neofr.habitcounter.model.HabitCounter
-import java.util.*
+import com.example.neofr.habitcounter.model.ResourceAndCounter
 
-class HabitCounterRepositoryImpl(private val habitDataSource: HabitDataSource) :
-    HabitCounterRepository {
+class HabitCounterRepositoryImpl(private val habitDataSource: HabitDataSource) : HabitCounterRepository {
     override fun getHabitCounters(getCountersCallBack: GetCountersCallBack) {
-        habitDataSource.getHabitCounters(getCountersCallBack)
+        val habits = habitDataSource.getHabits();
+
+        try {
+            val habitCounters = habits.map { habit ->
+                HabitCounter(
+                    habit,
+                    habitDataSource.getHabitResourceByHabitId(habit.id)
+                        .map {
+                            ResourceAndCounter(
+                                habitDataSource.getResourceById(it.resourceId)!!,
+                                habitDataSource.getResourceCounterByResourceId(it.resourceId)!!
+                            )
+                        }
+                )
+            }
+            getCountersCallBack.onCountersLoaded(habitCounters)
+        } catch (e: NullPointerException) {
+            getCountersCallBack.onError()
+        }
     }
 
-    override fun addHabitCounter(habitCounter: HabitCounter, addHabitCallBack: AddHabitCallBack) {
-        habitDataSource.addHabitCounter(habitCounter, addHabitCallBack)
-    }
+    override fun updateHabitCounter(habitCounter: HabitCounter, updateHabitCallBack: UpdateHabitCallBack) {
+        habitDataSource.updateHabit(habitCounter.habit)
+        habitCounter.resourceCounters.forEach {
+            habitDataSource.updateResource(it.resource)
+            habitDataSource.updateResourceCounter(it.resourceCounter)
+        }
 
-    override fun findHabitCounter(habitName: String, findHabitCallBack: FindHabitCallBack) {
-        habitDataSource.findHabitCounter(habitName, findHabitCallBack)
+        updateHabitCallBack.onAddHabit(habitCounter)
     }
-
-    companion object {
-        val instance =
-            HabitCounterRepositoryImpl(FakeHabitDataSourceImpl())
-    }
-
-    private val habits = HashMap<String, HabitCounter>()
 }

@@ -5,8 +5,7 @@ import com.example.neofr.habitcounter.model.HabitCounter
 
 interface HabitCounterRepository {
     fun getHabitCounters(getCountersCallBack: GetCountersCallBack)
-    fun addHabitCounter(habitCounter: HabitCounter, addHabitCallBack: AddHabitCallBack) // could update exists habit
-    fun findHabitCounter(habitName: String, findHabitCallBack: FindHabitCallBack)
+    fun updateHabitCounter(habitCounter: HabitCounter, updateHabitCallBack: UpdateHabitCallBack) // could update exists habit
 }
 
 interface GetCountersCallBack {
@@ -14,11 +13,6 @@ interface GetCountersCallBack {
     fun onError()
 }
 
-interface FindHabitCallBack {
-    fun onFindHabitCallBack(counter: HabitCounter)
-    fun onError()
-}
-
-interface AddHabitCallBack {
+interface UpdateHabitCallBack {
     fun onAddHabit(addedCounter: HabitCounter)
 }

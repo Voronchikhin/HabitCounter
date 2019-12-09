@@ -2,6 +2,7 @@ package com.example.neofr.habitcounter.view
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import com.example.neofr.habitcounter.dao.LocalDbHabitDataSourceImpl
 import com.example.neofr.habitcounter.presenter.HabitPresenter
 import com.example.neofr.habitcounter.presenter.common.UseCaseHandler
 import com.example.neofr.habitcounter.view.base.SingleFragmentActivity
@@ -15,7 +16,12 @@ class FeedActivity : SingleFragmentActivity() {
         super.onCreate(savedInstanceState)
 
         habitView = fragment as IHabitView
-        habitPresenter = HabitPresenter(habitView, UseCaseHandler())
+        habitPresenter = HabitPresenter(habitView, UseCaseHandler(), LocalDbHabitDataSourceImpl(applicationContext))
         habitView.presenter = habitPresenter
+    }
+
+    override fun onResume() {
+        super.onResume()
+        habitPresenter.start()
     }
 }
